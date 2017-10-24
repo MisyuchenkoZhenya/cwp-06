@@ -1,6 +1,6 @@
 const artcl = require('../models/article');
 const cmmnt = require('../models/comment');
-const sort = require('./comparator').sort;
+const sort = require('./delivery_settings').sort;
 const Err = require('./errors').Errors;
 const LOG = require('./logger').LOG;
 
@@ -15,8 +15,13 @@ const handlers = {
 };
 
 function articlesReadall(req, res, payload, articles, cb) {
-    const result = sort(payload, articles);
-    cb(null, result, articles);
+    try{
+        const result = sort(payload, articles);
+        cb(null, result, articles);
+    }
+    catch(Error){
+        cb(Err[400], {}, articles);          
+    }
 }
 
 function articlesRead(req, res, payload, articles, cb) {
