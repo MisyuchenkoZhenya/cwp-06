@@ -3,6 +3,7 @@ const cmmnt = require('../models/comment');
 const sort = require('./delivery_settings').sort;
 const Err = require('./errors').Errors;
 const LOG = require('./logger').LOG;
+const logger = require('./logger');
 
 const handlers = {
     '/articles/readall': articlesReadall,
@@ -12,6 +13,7 @@ const handlers = {
     '/articles/delete': articlesDelete,
     '/comments/create': commentsCreate,
     '/comments/delete': commentsDelete,
+    '/logs': getLogs,
 };
 
 function articlesReadall(req, res, payload, articles, cb) {
@@ -119,6 +121,12 @@ function commentsDelete(req, res, payload, articles, cb) {
         }
     });
   
+    cb(null, context, articles);
+}
+
+
+function getLogs(req, res, payload, articles, cb){
+    const context = logger.getJSON();
     cb(null, context, articles);
 }
 

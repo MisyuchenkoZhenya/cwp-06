@@ -14,7 +14,9 @@ const articles = getJSON(jsonPath);
 const server = http.createServer((req, res) => {
   
   jsonParser.parseBodyJson(req, (err, payload) => {
-    LOG(`${req.method} request to server.\nURL: ${hostname}:${port}${req.url}.\nRequest body:${JSON.stringify(payload)}.`)
+    
+    LOG({"method": req.method, "URL": `${hostname}:${port}${req.url}`, "body": payload});
+
     if(err || req.method !== "POST"){
       sendStatus(res, err);
     }
@@ -39,7 +41,6 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () => {
   checkDirs();
   console.log(`Server running at http://${hostname}:${port}/`);
-  LOG(`Server running at 'http://${hostname}:${port}/'.`);
 });
 
 function getHandler(url) {
@@ -67,7 +68,7 @@ function getJSON(path){
 function sendStatus(res, err){
   if(!err) err = Err[400];
   res.statusCode = err.code;
-  LOG(`ERROR:\n${err}.`);
+  LOG(err);
   res.setHeader('Content-Type', 'application/json');
   res.end( JSON.stringify(err) );
 }
