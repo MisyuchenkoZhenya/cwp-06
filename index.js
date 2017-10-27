@@ -13,15 +13,15 @@ const articles = getJSON(jsonPath);
 
 const server = http.createServer((req, res) => {
   
-  jsonParser.parseBodyJson(req, (err, payload) => {
+  jsonParser.parseBodyJson(req, (err, payload, url) => {
     
     LOG({"method": req.method, "URL": `${hostname}:${port}${req.url}`, "body": payload});
 
-    if(err || req.method !== "POST"){
+    if(err){
       sendStatus(res, err);
     }
     else{
-      const handler = getHandler(req.url);
+      const handler = getHandler(url);
 
       handler(req, res, payload, articles, (err, result, articles) => {
         if (err) {

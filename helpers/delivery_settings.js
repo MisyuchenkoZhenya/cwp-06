@@ -50,7 +50,6 @@ function createMeta(payload, articles){
     };
 }
 
-//TODO копирование объектов через for//
 function includeDeps(payload, array){
     array = JSON.parse(JSON.stringify(array));
     if(!("includeDeps" in payload && payload["includeDeps"] === "true")){
