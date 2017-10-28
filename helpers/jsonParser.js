@@ -22,11 +22,11 @@ function parseBodyJson(req, cb) {
     }
     else if(req.method === "GET"){
       let url_parts = url.parse(req.url, true);
-      let url = url_parts.pathname;
-      if(url in ["articles"]){
-        url += "id" in url_parts.query ? "/read" : "/readall";        
+      let url_path = url_parts.pathname;
+      if(url_path === "/articles"){
+        url_path += "id" in url_parts.query ? "/read" : "/readall";        
       }
-      cb(null, url_parts.query, url);
+      cb(null, url_parts.query, url_path);
     }
     else{
       throw Error;
