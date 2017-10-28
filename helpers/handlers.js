@@ -62,7 +62,7 @@ function articlesUpdate(req, res, payload, articles, cb) {
         const index = articles.length > 0 ? articles.findIndex((elem) => elem.id === payload.id) : -1;
         
         if(index !== undefined && index >= 0){
-            articles[index] = updateArticle(articles[index], payload.update);
+            articles[index] = updateArticle(articles[index], payload);
             context = {"Result": "Article updated"};
         }
     }
@@ -78,7 +78,7 @@ function articlesDelete(req, res, payload, articles, cb) {
     const index = articles.length > 0 ? articles.findIndex((elem) => elem.id === payload.id) : -1;
 
     if(index !== undefined && index >= 0){
-        delete articles[index];
+        articles.splice(index, 1);
         context = {"Result": "Article deleted"};
     }
     else{

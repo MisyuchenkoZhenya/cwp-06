@@ -11,7 +11,7 @@ function parseBodyJson(req, cb) {
   let body = [];
 
   try{
-    if(req.method in ["POST", "PUT", "DELETE"]){
+    if(req.method === 'POST' || req.method === 'PUT' || req.method === 'DELETE'){
       req.on('data', (chunk) => {
         body.push(chunk);
       }).on('end', () => {
@@ -31,7 +31,6 @@ function parseBodyJson(req, cb) {
     else{
       throw Error;
     }
-    
   }
   catch(Error){
     cb(Err[400], {});

@@ -16,7 +16,7 @@ function sort(payload, articles){
         return 0;
     });
     newArticles = sliceArray(payload, newArticles);
-    return { "items": includeDeps(payload, articles.slice()), "meta": createMeta(payload, articles) };
+    return { "items": includeDeps(payload, newArticles.slice()), "meta": createMeta(payload, articles) };
 }
 
 function getFieldValue(payload, field){
